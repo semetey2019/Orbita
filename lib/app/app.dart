@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../home_screen/home_screen.dart';
-import '../home_screen/sun_system.dart';
+import '../planet_system.dart';
+import '../planety/sun_system.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -12,7 +13,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData.dark(useMaterial3: true),
       themeMode: ThemeMode.system,
-      home: SolarSystemFull(),
+      home: AnimationOrbita(),
     );
   }
 }

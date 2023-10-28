@@ -28,7 +28,7 @@ class _BaloonPageState extends State<BaloonPage>
   }
 
   _startAnimation() {
-    _timer = Timer.periodic(Duration(milliseconds: 16), (timer) {
+    _timer = Timer.periodic(const Duration(milliseconds: 16), (timer) {
       setState(() {
         for (final baloon in _baloons) {
           baloon.x += wind * baloon.windDirection;
@@ -66,11 +66,11 @@ class _BaloonPageState extends State<BaloonPage>
                       windDirection: Random().nextBool() ? -1 : 1));
                   setState(() {});
                 },
-                icon: Icon(
+                icon: const Icon(
                   Icons.add_box_rounded,
                   size: 50,
                 )),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
           ],

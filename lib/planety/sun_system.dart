@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:solar_sistem/home_screen/planet.dart';
+import 'package:solar_sistem/planety/planet.dart';
 
 class SolarSystemFull extends StatefulWidget {
   const SolarSystemFull({Key? key}) : super(key: key);
@@ -32,43 +32,43 @@ class _SolarSystemFullState extends State<SolarSystemFull>
       Planet(
         planetName: 'Venus',
         radius: 10.0,
-        orbitRadius: 100.0,
+        orbitRadius: 70.0,
         color: Colors.orangeAccent,
       ),
       Planet(
         planetName: 'Earth',
         radius: 15.0,
-        orbitRadius: 150.0,
+        orbitRadius: 80.0,
         color: Colors.blue,
       ),
       Planet(
         planetName: 'Mars',
         radius: 12.0,
-        orbitRadius: 200.0,
+        orbitRadius: 100.0,
         color: Colors.red,
       ),
       Planet(
         planetName: 'Juppyter',
         radius: 25.0,
-        orbitRadius: 250.0,
+        orbitRadius: 120.0,
         color: Colors.brown,
       ),
       Planet(
         planetName: 'Saturn',
         radius: 22.0,
-        orbitRadius: 300.0,
+        orbitRadius: 140.0,
         color: Colors.yellow,
       ),
       Planet(
         planetName: 'Uranus',
         radius: 15.0,
-        orbitRadius: 350.0,
+        orbitRadius: 150.0,
         color: Colors.lightBlue,
       ),
       Planet(
         planetName: 'Neptune',
         radius: 15.0,
-        orbitRadius: 400.0,
+        orbitRadius: 160.0,
         color: Colors.blue.shade900,
       ),
     ];
