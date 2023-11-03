@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 
-import '../planety/planet.dart';
-
 class AnimationOrbita extends StatefulWidget {
   const AnimationOrbita({super.key});
 
@@ -13,11 +11,11 @@ class AnimationOrbita extends StatefulWidget {
 class _AnimationOrbitaState extends State<AnimationOrbita>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
-  List<Planet> planets = [];
+  final List<Planet> planets = [];
   @override
   void initState() {
     _animationController = AnimationController(
-        vsync: this, duration: Duration(seconds: 10), upperBound: 3 + pi);
+        vsync: this, duration: const Duration(seconds: 10), upperBound: 3 + pi);
 
     _animationController.addListener(() {
       setState(() {});
@@ -31,35 +29,52 @@ class _AnimationOrbitaState extends State<AnimationOrbita>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.black12,
       body: InteractiveViewer(
-        maxScale: 10,
+        maxScale: 5,
         child: CustomPaint(
           painter: Orbita(_animationController),
           child: Container(),
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          _navigateToAddPlanetScreen();
+        onPressed: () async {
+          Planet? planet = await Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => AddPlanetScreen()),
+          );
+          if (planet != null) {
+            _addPlanet(planet);
+          }
         },
         child: Icon(Icons.add),
       ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () {
+      //     _navigateToAddPlanetScreen();
+      //   },
+      //   child: Icon(Icons.add),
+      // ),
     );
   }
 
-  void _navigateToAddPlanetScreen() async {
-    final newPlanet = await Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => AddPlanetScreen()),
-    );
-
-    if (newPlanet != null) {
-      setState(() {
-        planets.add(newPlanet);
-      });
-    }
+  void _addPlanet(Planet planet) {
+    setState(() {
+      planets.add(planet);
+    });
   }
+  // void _navigateToAddPlanetScreen() async {
+  //   final newPlanet = await Navigator.push(
+  //     context,
+  //     MaterialPageRoute(builder: (context) => AddPlanetScreen()),
+  //   );
+
+  //   if (newPlanet != null) {
+  //     setState(() {
+  //       planets.add(newPlanet);
+  //     });
+  //   }
+  // }
 }
 
 class Orbita extends CustomPainter {
@@ -157,8 +172,8 @@ class _PlanetWidgetState extends State<PlanetWidget> {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      left: 200 + widget.planet.distance * 100.0 * cos(angle),
-      top: 200 + widget.planet.distance * 100.0 * sin(angle),
+      left: 100 + widget.planet.distance * 50.0 * cos(angle),
+      top: 100 + widget.planet.distance * 50.0 * sin(angle),
       child: Container(
         width: widget.planet.radius * 2,
         height: widget.planet.radius * 2,
@@ -211,15 +226,18 @@ class AddPlanetScreen extends StatelessWidget {
               onPressed: () {
                 final newPlanet = Planet(
                   radius: double.parse(radiusController.text),
-                  color: Color(
-                      0xFF000000 + int.parse(colorController.text, radix: 16)),
+                  color: Color(int.parse(colorController.text)),
+                  // color: Color(
+                  //     int.parse("0xFF" + colorController.text, radix: 16)),
+                  // color: Color(
+                  //     0xFF000000 + int.parse(colorController.text, radix: 16)),
                   distance: double.parse(distanceController.text),
                   rotationSpeed: double.parse(speedController.text),
                 );
 
                 Navigator.pop(context, newPlanet);
               },
-              child: Text('Добавить'),
+              child: const Text("planets.add"),
             ),
           ],
         ),
