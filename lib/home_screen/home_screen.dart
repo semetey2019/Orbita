@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
+import 'package:solar_sistem/home_screen/add_planet_screen.dart';
 
 class AnimationOrbita extends StatefulWidget {
   const AnimationOrbita({super.key});
@@ -31,7 +32,7 @@ class _AnimationOrbitaState extends State<AnimationOrbita>
     return Scaffold(
       backgroundColor: Colors.black12,
       body: InteractiveViewer(
-        maxScale: 5,
+        maxScale: 10,
         child: CustomPaint(
           painter: Orbita(_animationController),
           child: Container(),
@@ -41,7 +42,7 @@ class _AnimationOrbitaState extends State<AnimationOrbita>
         onPressed: () async {
           Planet? planet = await Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => AddPlanetScreen()),
+            MaterialPageRoute(builder: (context) => AddPlanetScreenFirst()),
           );
           if (planet != null) {
             _addPlanet(planet);
@@ -82,7 +83,7 @@ class Orbita extends CustomPainter {
   Orbita(this.animation);
 
   @override
-  void paint(Canvas canvas, Size size) async {
+  void paint(Canvas canvas, Size size) {
     final sunPaint = Paint()..color = Colors.yellow;
     final orbitPaint = Paint()
       ..color = Colors.grey.withOpacity(0.5)
@@ -97,7 +98,7 @@ class Orbita extends CustomPainter {
     canvas.drawCircle(
         Offset(size.width / 2, size.height / 2), zemlyaOrbitRadius, orbitPaint);
 
-    canvas.drawCircle(Offset(size.width / 2, size.height / 2), 80, sunPaint);
+    canvas.drawCircle(Offset(size.width / 2, size.height / 2), 60, sunPaint);
     canvas.drawCircle(
         Offset(size.width / 2 + zemlyaOrbitRadius * cos(animation.value),
             size.height / 2 + zemlyaOrbitRadius * sin(animation.value)),
@@ -169,79 +170,34 @@ class _PlanetWidgetState extends State<PlanetWidget> {
     });
   }
 
-  @override
+  late AnimationController _animationController;
+
   Widget build(BuildContext context) {
-    return Positioned(
-      left: 100 + widget.planet.distance * 50.0 * cos(angle),
-      top: 100 + widget.planet.distance * 50.0 * sin(angle),
-      child: Container(
-        width: widget.planet.radius * 2,
-        height: widget.planet.radius * 2,
-        decoration: BoxDecoration(
-          color: widget.planet.color,
-          shape: BoxShape.circle,
+    return InteractiveViewer(
+      maxScale: 10,
+      child: CustomPaint(
+        painter: Orbita(_animationController),
+        child: Container(
+          width: widget.planet.radius * 2,
+          height: widget.planet.radius * 2,
+          decoration: BoxDecoration(
+            color: widget.planet.color,
+            shape: BoxShape.circle,
+          ),
         ),
       ),
     );
-  }
-}
-
-class AddPlanetScreen extends StatelessWidget {
-  final TextEditingController radiusController = TextEditingController();
-  final TextEditingController colorController = TextEditingController();
-  final TextEditingController distanceController = TextEditingController();
-  final TextEditingController speedController = TextEditingController();
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Добавить планету'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            TextField(
-              controller: radiusController,
-              decoration: InputDecoration(labelText: 'Радиус'),
-              keyboardType: TextInputType.number,
-            ),
-            TextField(
-              controller: colorController,
-              decoration:
-                  InputDecoration(labelText: 'Цвет (например, Colors.blue)'),
-            ),
-            TextField(
-              controller: distanceController,
-              decoration: InputDecoration(labelText: 'Удаленность'),
-              keyboardType: TextInputType.number,
-            ),
-            TextField(
-              controller: speedController,
-              decoration: InputDecoration(labelText: 'Скорость вращения'),
-              keyboardType: TextInputType.number,
-            ),
-            ElevatedButton(
-              onPressed: () {
-                final newPlanet = Planet(
-                  radius: double.parse(radiusController.text),
-                  color: Color(int.parse(colorController.text)),
-                  // color: Color(
-                  //     int.parse("0xFF" + colorController.text, radix: 16)),
-                  // color: Color(
-                  //     0xFF000000 + int.parse(colorController.text, radix: 16)),
-                  distance: double.parse(distanceController.text),
-                  rotationSpeed: double.parse(speedController.text),
-                );
-
-                Navigator.pop(context, newPlanet);
-              },
-              child: const Text("planets.add"),
-            ),
-          ],
-        ),
-      ),
-    );
+    //  Positioned(
+    //   left: 200 + widget.planet.distance * 100.0 * cos(angle),
+    //   top: 200 + widget.planet.distance * 100.0 * sin(angle),
+    //   child: Container(
+    //     width: widget.planet.radius * 2,
+    //     height: widget.planet.radius * 2,
+    //     decoration: BoxDecoration(
+    //       color: widget.planet.color,
+    //       shape: BoxShape.circle,
+    //     ),
+    //   ),
+    // );
   }
 }

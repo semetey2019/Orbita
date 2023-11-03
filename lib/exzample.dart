@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:solar_sistem/home_screen/add_planet_screen.dart';
 
 class Planet {
   final double radius;
@@ -29,7 +30,7 @@ class _SolarSystemState extends State<SolarSystem>
   void initState() {
     super.initState();
     _controller =
-        AnimationController(vsync: this, duration: Duration(seconds: 10))
+        AnimationController(vsync: this, duration: const Duration(seconds: 10))
           ..repeat();
     _planets.add(
         Planet(radius: 20, color: Colors.red, distance: 50, rotationSpeed: 1));
@@ -90,121 +91,13 @@ class _SolarSystemState extends State<SolarSystem>
         onPressed: () async {
           Planet? planet = await Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => AddPlanetScreen()),
+            MaterialPageRoute(builder: (context) => AddPlanetScreenFirst()),
           );
           if (planet != null) {
             _addPlanet(planet);
           }
         },
-        child: Icon(Icons.add),
-      ),
-    );
-  }
-}
-
-class AddPlanetScreen extends StatefulWidget {
-  const AddPlanetScreen({Key? key}) : super(key: key);
-
-  @override
-  _AddPlanetScreenState createState() => _AddPlanetScreenState();
-}
-
-class _AddPlanetScreenState extends State<AddPlanetScreen> {
-  final _formKey = GlobalKey<FormState>();
-  final _radiusController = TextEditingController();
-  final _colorController = TextEditingController();
-  final _distanceController = TextEditingController();
-  final _rotationSpeedController = TextEditingController();
-
-  @override
-  void dispose() {
-    _radiusController.dispose();
-    _colorController.dispose();
-    _distanceController.dispose();
-    _rotationSpeedController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Add Planet'),
-      ),
-      body: Padding(
-        padding: EdgeInsets.all(16),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              TextFormField(
-                controller: _radiusController,
-                decoration: InputDecoration(
-                  labelText: 'Radius',
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter a radius';
-                  }
-                  return null;
-                },
-              ),
-              TextFormField(
-                controller: _colorController,
-                decoration: InputDecoration(
-                  labelText: 'Color',
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter a color';
-                  }
-                  return null;
-                },
-              ),
-              TextFormField(
-                controller: _distanceController,
-                decoration: InputDecoration(
-                  labelText: 'Distance',
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter a distance';
-                  }
-                  return null;
-                },
-              ),
-              TextFormField(
-                controller: _rotationSpeedController,
-                decoration: InputDecoration(
-                  labelText: 'Rotation Speed',
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter a rotation speed';
-                  }
-                  return null;
-                },
-              ),
-              SizedBox(height: 16),
-              ElevatedButton(
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    Planet planet = Planet(
-                      radius: double.parse(_radiusController.text),
-                      color: Color(int.parse(_colorController.text)),
-                      distance: double.parse(_distanceController.text),
-                      rotationSpeed:
-                          double.parse(_rotationSpeedController.text),
-                    );
-                    Navigator.pop(context, planet);
-                  }
-                },
-                child: Text('Add'),
-              ),
-            ],
-          ),
-        ),
+        child: const Icon(Icons.add),
       ),
     );
   }

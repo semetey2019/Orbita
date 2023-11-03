@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:solar_sistem/home_screen/add_planet_screen.dart';
 
 class PlanetSystem extends StatefulWidget {
   @override
@@ -36,7 +37,7 @@ class _PlanetSystemState extends State<PlanetSystem> {
   void _navigateToAddPlanetScreen() async {
     final newPlanet = await Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => AddPlanetScreen()),
+      MaterialPageRoute(builder: (context) => AddPlanetScreenFirst()),
     );
 
     if (newPlanet != null) {
@@ -118,59 +119,59 @@ class _PlanetWidgetState extends State<PlanetWidget> {
   }
 }
 
-class AddPlanetScreen extends StatelessWidget {
-  final TextEditingController radiusController = TextEditingController();
-  final TextEditingController colorController = TextEditingController();
-  final TextEditingController distanceController = TextEditingController();
-  final TextEditingController speedController = TextEditingController();
+// class AddPlanetScreen extends StatelessWidget {
+//   final TextEditingController radiusController = TextEditingController();
+//   final TextEditingController colorController = TextEditingController();
+//   final TextEditingController distanceController = TextEditingController();
+//   final TextEditingController speedController = TextEditingController();
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Добавить планету'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            TextField(
-              controller: radiusController,
-              decoration: InputDecoration(labelText: 'Радиус'),
-              keyboardType: TextInputType.number,
-            ),
-            TextField(
-              controller: colorController,
-              decoration:
-                  InputDecoration(labelText: 'Цвет (например, Colors.blue)'),
-            ),
-            TextField(
-              controller: distanceController,
-              decoration: InputDecoration(labelText: 'Удаленность'),
-              keyboardType: TextInputType.number,
-            ),
-            TextField(
-              controller: speedController,
-              decoration: InputDecoration(labelText: 'Скорость вращения'),
-              keyboardType: TextInputType.number,
-            ),
-            ElevatedButton(
-              onPressed: () {
-                final newPlanet = Planet(
-                  radius: double.parse(radiusController.text),
-                  color: Color(
-                      0xFF000000 + int.parse(colorController.text, radix: 16)),
-                  distance: double.parse(distanceController.text),
-                  rotationSpeed: double.parse(speedController.text),
-                );
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text('Добавить планету'),
+//       ),
+//       body: Padding(
+//         padding: const EdgeInsets.all(16.0),
+//         child: Column(
+//           children: [
+//             TextField(
+//               controller: radiusController,
+//               decoration: InputDecoration(labelText: 'Радиус'),
+//               keyboardType: TextInputType.number,
+//             ),
+//             TextField(
+//               controller: colorController,
+//               decoration:
+//                   InputDecoration(labelText: 'Цвет (например, Colors.blue)'),
+//             ),
+//             TextField(
+//               controller: distanceController,
+//               decoration: InputDecoration(labelText: 'Удаленность'),
+//               keyboardType: TextInputType.number,
+//             ),
+//             TextField(
+//               controller: speedController,
+//               decoration: InputDecoration(labelText: 'Скорость вращения'),
+//               keyboardType: TextInputType.number,
+//             ),
+//             ElevatedButton(
+//               onPressed: () {
+//                 final newPlanet = Planet(
+//                   radius: double.parse(radiusController.text),
+//                   color: Color(
+//                       0xFF000000 + int.parse(colorController.text, radix: 16)),
+//                   distance: double.parse(distanceController.text),
+//                   rotationSpeed: double.parse(speedController.text),
+//                 );
 
-                Navigator.pop(context, newPlanet);
-              },
-              child: Text('Добавить'),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
+//                 Navigator.pop(context, newPlanet);
+//               },
+//               child: Text('Добавить'),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
