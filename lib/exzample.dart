@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:solar_sistem/home_screen/add_planet_screen.dart';
+import 'package:solar_sistem/home_screen/home_screen.dart';
 
 class Planet {
   final double radius;
@@ -53,14 +54,16 @@ class _SolarSystemState extends State<SolarSystem>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.black,
       appBar: AppBar(
         title: const Text('Solar System'),
       ),
-      body: Center(
-        child: Stack(
-          children: [
-            Container(
+      body: InteractiveViewer(
+        maxScale: 10,
+        child: CustomPaint(
+          painter: Orbita(_controller),
+          child: Center(
+            child: Container(
               width: 100,
               height: 100,
               decoration: const BoxDecoration(
@@ -68,23 +71,23 @@ class _SolarSystemState extends State<SolarSystem>
                 color: Colors.yellow,
               ),
             ),
-            for (int i = 0; i < _planets.length; i++)
-              Positioned(
-                right: 20,
-                left: 60 + _planets[i].distance * _controller.value,
-                child: RotationTransition(
-                  turns: _controller,
-                  child: Container(
-                    width: _planets[i].radius * 2,
-                    height: _planets[i].radius * 2,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: _planets[i].color,
-                    ),
-                  ),
-                ),
-              ),
-          ],
+          ),
+          // for (int i = 0; i < _planets.length; i++)
+          //   Positioned(
+          //     right: 20,
+          //     left: 60 + _planets[i].distance * _controller.value,
+          //     child: RotationTransition(
+          //       turns: _controller,
+          //       child: Container(
+          //         width: _planets[i].radius * 2,
+          //         height: _planets[i].radius * 2,
+          //         decoration: BoxDecoration(
+          //           shape: BoxShape.circle,
+          //           color: _planets[i].color,
+          //         ),
+          //       ),
+          //     ),
+          //   ),
         ),
       ),
       floatingActionButton: FloatingActionButton(

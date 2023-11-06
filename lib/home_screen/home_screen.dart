@@ -16,7 +16,7 @@ class _AnimationOrbitaState extends State<AnimationOrbita>
   @override
   void initState() {
     _animationController = AnimationController(
-        vsync: this, duration: const Duration(seconds: 10), upperBound: 3 + pi);
+        vsync: this, duration: const Duration(seconds: 10), upperBound: 2 + pi);
 
     _animationController.addListener(() {
       setState(() {});
