@@ -42,7 +42,8 @@ class _AnimationOrbitaState extends State<AnimationOrbita>
         onPressed: () async {
           Planet? planet = await Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => AddPlanetScreenFirst()),
+            MaterialPageRoute(
+                builder: (context) => const AddPlanetScreenFirst()),
           );
           if (planet != null) {
             _addPlanet(planet);
@@ -162,7 +163,7 @@ class _PlanetWidgetState extends State<PlanetWidget> {
   }
 
   void _startRotation() {
-    Future.delayed(Duration(milliseconds: 16), () {
+    Future.delayed(const Duration(milliseconds: 16), () {
       setState(() {
         angle += widget.planet.rotationSpeed;
         _startRotation();

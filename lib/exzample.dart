@@ -94,7 +94,8 @@ class _SolarSystemState extends State<SolarSystem>
         onPressed: () async {
           Planet? planet = await Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => AddPlanetScreenFirst()),
+            MaterialPageRoute(
+                builder: (context) => const AddPlanetScreenFirst()),
           );
           if (planet != null) {
             _addPlanet(planet);

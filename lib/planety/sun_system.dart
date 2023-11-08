@@ -20,7 +20,7 @@ class _SolarSystemFullState extends State<SolarSystemFull>
   @override
   void initState() {
     _sunAnimationController = AnimationController(
-        vsync: this, duration: Duration(seconds: 10), upperBound: 2 * pi);
+        vsync: this, duration: const Duration(seconds: 10), upperBound: 2 * pi);
 
     _planets = [
       Planet(
